@@ -46,7 +46,7 @@
 }
 
 .variant-button:hover {
-    background-color: #e0e0e0;
+    background-color: darkgreen;
 }
 
 .item-price {
@@ -55,6 +55,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.item-price .price {
+    width: 100%;
 }
 
 .item-quantity {

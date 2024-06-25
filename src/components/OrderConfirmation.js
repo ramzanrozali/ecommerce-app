@@ -1,19 +1,28 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from '../utils/debounce';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../css/OrderConfirmation.css';
 
 const OrderConfirmation = ({ cart, removeFromCart }) => {
     const navigate = useNavigate();
     const [remarks, setRemarks] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
+    const [postcode, setPostcode] = useState('');
+    const [state, setState] = useState('');
     const [deliveryFee, setDeliveryFee] = useState(0.00);
     const [distance, setDistance] = useState(0);
+    const [itemToRemove, setItemToRemove] = useState(null); // New state variable for item to remove
+
     const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     const voucherDiscount = 0.00; // Example voucher discount
     const sst = totalAmount * 0.06; // 6% SST
 
-    const BASE_CENTER = { lat: 3.2439930459613837, lng: 101.66489216335326 };
+    const BASE_CENTER = { lat: 3.2439930459613837, lng: 101.66489216335326 }; // Base center coordinates
 
     const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
         const R = 6371; // Radius of the earth in km
@@ -33,8 +42,9 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
     };
 
     const calculateDistance = async () => {
+        const fullAddress = `${address}, ${postcode}, ${state}, Malaysia`;
         const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(fullAddress)}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
         );
         const data = await response.json();
         if (data.results.length > 0) {
@@ -50,30 +60,81 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
         }
     };
 
-    const debouncedCalculateDistance = useCallback(debounce(calculateDistance, 500), [address]);
+    const debouncedCalculateDistance = useCallback(debounce(calculateDistance, 500), [address, postcode, state]);
 
     useEffect(() => {
-        if (address) {
+        if (address && postcode && state) {
             debouncedCalculateDistance();
         }
-    }, [address, debouncedCalculateDistance]);
+    }, [address, postcode, state, debouncedCalculateDistance]);
+
+    const handleRemoveClick = (itemId) => {
+        setItemToRemove(itemId);
+    };
+
+    const confirmRemove = () => {
+        removeFromCart(itemToRemove);
+        setItemToRemove(null);
+    };
+
+    const cancelRemove = () => {
+        setItemToRemove(null);
+    };
 
     const grandTotal = totalAmount - voucherDiscount + deliveryFee;
+    const pointsEarned = Math.floor(grandTotal);
 
     return (
         <div className="order-confirmation">
             <button onClick={() => navigate('/')}>Back to List</button>
-            <h2>Order Confirmation</h2>
+            <h3>Order Confirmation</h3>
+            <div className="customer-info">
+                <h3>Customer Information</h3>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name"
+                    required
+                />
+                <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Enter your phone number"
+                    required
+                />
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                />
+            </div>
             <div className="pickup-location">
-                <h3>Delivery Address:</h3>
+                <h4>Delivery Address</h4>
                 <textarea
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Enter your delivery address here"
+                    placeholder="Enter your address"
+                    required
                 />
+                <input
+                    type="text"
+                    value={postcode}
+                    onChange={(e) => setPostcode(e.target.value)}
+                    placeholder="Enter your postcode"
+                    required
+                />
+                <select value={state} onChange={(e) => setState(e.target.value)} required>
+                    <option value="">Select your state</option>
+                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                    <option value="Selangor">Selangor</option>
+                </select>
             </div>
             <div className="your-order">
-                <h3>Your Order</h3>
+                <h4>Your Order</h4>
                 {cart.map((item, index) => (
                     <div key={index} className="order-item">
                         <img src={`/images/${item.image}`} alt={item.name} />
@@ -82,13 +143,15 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                             {item.variantName && <p>Selected: {item.variantName}</p>}
                             <p>RM {item.price}</p>
                             <p>Qty: {item.quantity}</p>
-                            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                            <button onClick={() => handleRemoveClick(item.id)}>
+                                <FontAwesomeIcon icon={faTrash} /> {/* Change to FontAwesome bin icon */}
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
             <div className="special-remarks">
-                <h3>Special Remarks</h3>
+                <h4>Special Remarks</h4>
                 <textarea
                     value={remarks}
                     onChange={(e) => setRemarks(e.target.value)}
@@ -96,7 +159,7 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                 />
             </div>
             <div className="payment-details">
-                <h3>Payment Details</h3>
+                <h4>Payment Details</h4>
                 <div className="payment-detail">
                     <span>Amount</span>
                     <span>RM {totalAmount.toFixed(2)}</span>
@@ -115,10 +178,18 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                 </div>
                 <div className="payment-detail">
                     <span>Points Earned</span>
-                    <span>10 pts</span>
+                    <span>{pointsEarned} pts</span>
                 </div>
             </div>
-            {/*<button className="pay-now" disabled={grandTotal <= 50}>Pay Now</button>*/}
+            <button className="pay-now" disabled={grandTotal <= 50}>Pay Now</button>
+
+            {itemToRemove !== null && (
+                <div className="confirmation-dialog">
+                    <p>Are you sure you want to remove this item?</p>
+                    <button onClick={confirmRemove}>Yes</button>
+                    <button onClick={cancelRemove}>No</button>
+                </div>
+            )}
         </div>
     );
 };

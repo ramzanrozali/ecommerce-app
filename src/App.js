@@ -43,7 +43,8 @@ function App() {
                     <Navigation onCategorySelect={handleCategorySelect} />
                     <Routes>
                         <Route path="/" element={<Menu items={menuItemsData[selectedCategory]} />} />
-                        <Route path="/item/:itemId" element={<ItemDetails items={menuItemsData[selectedCategory]} onAddToCart={handleAddToCart} />} />
+                        <Route path="/category/:categoryId" element={<Menu items={menuItemsData[selectedCategory]} onCategorySelect={handleCategorySelect} />} />
+                        <Route path="/item/:itemId" element={<ItemDetails items={menuItemsData} onAddToCart={handleAddToCart} />} />
                         <Route path="/order-confirmation" element={<OrderConfirmation cart={cart} removeFromCart={removeFromCart} />} />
                     </Routes>
                 </div>

@@ -1,3 +1,9 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -12,7 +18,9 @@ body {
   padding: 10px 20px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  z-index: 1100;
 }
+
 
 .header .location {
   font-size: 18px;
@@ -36,13 +44,31 @@ body {
   border-radius: 20px;
 }
 
-.content {
+.content-wrapper {
   display: flex;
+  flex: 1;
+  margin-top: 60px; /* Adjust based on header height */
+}
+
+.content {
+  margin-left: 110px; /* Adjust this value to match the width of the navigation */
+  padding: 20px;
+  flex: 1;
+}
+
+.order-confirmation-margin {
+  margin-left: 10px;
 }
 
 .navigation {
-  width: 300px;
-  background-color: #fff;
+  width: 130px; /* Adjust this value to your desired fixed width */
+  position: absolute;
+  top: 40px;
+  left: 0;
+  bottom: 0;
+  background-color: #f8f9fa;
+  padding: 5px;
+  box-sizing: border-box;
   border-right: 1px solid #ddd;
 }
 
@@ -81,23 +107,15 @@ body {
   height: 100px;
 }
 
-.footer {
-  padding: 10px 20px;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  text-align: center;
-}
-
-.footer .order-now {
-  padding: 10px 20px;
-  background-color: darkgreen;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/* Add these styles to App.css */
+/*.footer {*/
+/*  padding: 10px 20px;*/
+/*  background-color: #fff;*/
+/*  border-top: 1px solid #ddd;*/
+/*  text-align: center;*/
+/*  z-index: 1100;*/
+/*  bottom: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 a {
   text-decoration: none;

@@ -4,11 +4,15 @@ import '../css/ItemDetails.css';
 
 const ItemDetails = ({ items, onAddToCart }) => {
     const { itemId } = useParams();
-    const item = items[itemId];
-    // const item = items.find(i => i.id === parseInt(itemId, 10));
     const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
     const [selectedVariant, setSelectedVariant] = useState(null);
+
+    // Flatten items object into an array of items
+    const allItems = Object.values(items).flat();
+
+    // Find the item by itemId
+    const item = allItems.find(i => i.id === parseInt(itemId, 10));
 
     useEffect(() => {
         if (item && item.variants.length > 0) {
@@ -23,7 +27,7 @@ const ItemDetails = ({ items, onAddToCart }) => {
     const handleAddToCart = () => {
         const cartItem = { ...item, ...selectedVariant, quantity };
         onAddToCart(cartItem);
-        navigate('/order-confirmation');
+        // navigate('/order-confirmation');
     };
 
     const handleVariantChange = (variantId) => {
@@ -34,7 +38,7 @@ const ItemDetails = ({ items, onAddToCart }) => {
     return (
         <div className="item-details">
             <button onClick={() => navigate(-1)}>Back</button>
-            <img src={`/images/${item.image}`} alt={item.name} />
+            <img src={`/images/${item.image}`} alt={item.name}/>
             <h2>{item.name}</h2>
             <p>{item.description}</p>
             {item.variants.length > 0 && (
@@ -54,10 +58,12 @@ const ItemDetails = ({ items, onAddToCart }) => {
                 </div>
             )}
             <div className="item-price">
-                <span>RM {selectedVariant ? selectedVariant.price : item.price}</span>
+                <span>Price: RM {selectedVariant ? selectedVariant.price : item.price}</span>
+            </div>
+            <div className="item-price">
                 <div className="item-quantity">
                     <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
-                    <input type="number" value={quantity} readOnly />
+                    <input type="number" value={quantity} readOnly/>
                     <button onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
             </div>
