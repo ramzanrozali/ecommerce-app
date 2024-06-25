@@ -42,15 +42,15 @@ function App() {
     const location = useLocation();
 
     const shouldShowNavigation = () => {
-        return location.pathname === '/products' || location.pathname.startsWith('/category/') || location.pathname.startsWith('/item/');
+        return location.pathname === '/products' || location.pathname.startsWith('/category');
     };
 
-    const shouldShowFooter = () => {
-        return location.pathname.startsWith('/category/') || location.pathname.startsWith('/product/') || location.pathname.startsWith('/item/');
+    const shouldShowPrice = () => {
+        return location.pathname.startsWith('/category') || location.pathname.startsWith('/products') || location.pathname.startsWith('/item');
     };
 
     const shouldShowBottom = () => {
-        return location.pathname.startsWith('/') || location.pathname.startsWith('/home/') || location.pathname.startsWith('/recipes/');
+        return location.pathname.startsWith('/') || location.pathname.startsWith('/home/') || location.pathname.startsWith('/recipes');
     };
 
     return (
@@ -71,7 +71,7 @@ function App() {
             </div>
             {/*{location.pathname !== '/order-confirmation' && <Footer cart={cart} />}*/}
             {/*{location.pathname === '/home' || location.pathname === '/recipes' }*/}
-            {shouldShowFooter() && <Footer cart={cart} />}
+            {shouldShowPrice() && <Footer cart={cart} />}
             {shouldShowBottom() && (
                 <BottomNavigation />
             )}
