@@ -2,6 +2,8 @@
 
 ![eCommerce React App](public/images/sample-app/ecommerce-react-1.png)
 ![eCommerce React App](public/images/sample-app/ecommerce-react-2.png)
+![eCommerce React App](public/images/sample-app/ecommerce-react-3.png)
+![eCommerce React App](public/images/sample-app/ecommerce-react-4.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
