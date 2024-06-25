@@ -15,7 +15,7 @@ const ItemDetails = ({ items, onAddToCart }) => {
     const item = allItems.find(i => i.id === parseInt(itemId, 10));
 
     useEffect(() => {
-        if (item && item.variants.length > 0) {
+        if (item && item.variants && item.variants.length > 0) {
             setSelectedVariant(item.variants[0]);
         }
     }, [item]);
@@ -38,10 +38,10 @@ const ItemDetails = ({ items, onAddToCart }) => {
     return (
         <div className="item-details">
             <button onClick={() => navigate(-1)}>Back</button>
-            <img src={`/images/${item.image}`} alt={item.name}/>
+            <img src={`/images/${item.image}`} alt={item.name} />
             <h2>{item.name}</h2>
             <p>{item.description}</p>
-            {item.variants.length > 0 && (
+            {item.variants && item.variants.length > 0 && (
                 <div className="item-variants">
                     <label>Choose a variant:</label>
                     <div className="variant-buttons">
@@ -60,12 +60,10 @@ const ItemDetails = ({ items, onAddToCart }) => {
             <div className="item-price">
                 <span>Price: RM {selectedVariant ? selectedVariant.price : item.price}</span>
             </div>
-            <div className="item-price">
-                <div className="item-quantity">
-                    <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
-                    <input type="number" value={quantity} readOnly/>
-                    <button onClick={() => setQuantity(quantity + 1)}>+</button>
-                </div>
+            <div className="item-quantity">
+                <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
+                <input type="number" value={quantity} readOnly />
+                <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
             <button className="add-to-cart" onClick={handleAddToCart}>Add To Cart</button>
         </div>

@@ -9,7 +9,7 @@ const Menu = ({ items }) => {
                     <Link to={`/item/${item.id}`}>
                         <img src={`/images/${item.image}`} alt={item.name} />
                         <h3>{item.name}</h3>
-                        <p>RM {item.price}</p>
+                        <p>from RM {item.price}</p>
                     </Link>
                 </div>
             ))}

@@ -1,12 +1,12 @@
 {
   "1": [
-    { "id": 6, "image": "bawang-besar-1.png", "name": "Ayam", "price": "19.90", "description": "Ayam", "variants": [] },
-    { "id": 7, "image": "bawang-besar-1.png", "name": "Daging Batang Pinang 1kg (Frozen)", "price": "39.50", "description": "Description", "variants": [] }
+    { "id": 6, "image": "/daging/ayam.jpg", "name": "Ayam", "price": "19.90", "description": "Ayam", "variants": [] },
+    { "id": 7, "image": "/daging/daging-batang-pinang-frozen.jpg", "name": "Daging Batang Pinang 1kg (Frozen)", "price": "39.50", "description": "Description", "variants": [] }
   ],
   "2": [
     {
       "id": 8,
-      "image": "bawang-besar-1.png",
+      "image": "/sayur/bayam-hijau.jpg",
       "name": "Bayam Hijau",
       "description": "Description",
       "price": "2.30",
@@ -18,15 +18,14 @@
     }
   ],
   "3": [
-    { "id": 11, "image": "bawang-besar-1.png", "name": "Ikan Bawal Hitam", "price": "32.00", "description": "Description", "variants": [] },
-    { "id": 12, "image": "bawang-besar-1.png", "name": "Cencaru", "price": "30.00", "description": "Description", "variants": [] }
+    { "id": 11, "image": "/seafood/ikan-bawal-hitam.png", "name": "Ikan Bawal Hitam", "price": "32.00", "description": "Description", "variants": [] },
+    { "id": 12, "image": "/seafood/ikan-cencaru.png", "name": "Cencaru", "price": "30.00", "description": "Description", "variants": [] }
   ],
   "4": [
-    { "id": 13, "image": "bawang-besar-1.png", "name": "Apple Hijau", "price": "1.50", "description": "Description", "variants": [] },
-    { "id": 14, "image": "bawang-besar-1.png", "name": "Lemon", "price": "2.00", "description": "Description", "variants": [] }
+    { "id": 13, "image": "/buah/buah-apple-hijau.jpg", "name": "Apple Hijau", "price": "1.50", "description": "Description", "variants": [] },
+    { "id": 14, "image": "/buah/buah-lemon.jpg", "name": "Lemon", "price": "2.00", "description": "Description", "variants": [] }
   ],
   "5": [
-    { "id": 15, "image": "bawang-besar-1.png", "name": "Bawang Besar India 1KG", "price": "12.50", "description": "Description", "variants": [] },
-    { "id": 16, "image": "bawang-besar-1.png", "name": "Bawang Besar India 500g", "price": "7.50", "description": "Description", "variants": [] }
+    { "id": 15, "image": "bawang-besar-1.png", "name": "Bawang Besar India", "price": "12.50", "description": "Description", "variants": [] }
   ]
 }
