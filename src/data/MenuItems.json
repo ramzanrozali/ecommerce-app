@@ -1,0 +1,23 @@
+{
+  "1": [
+    { "id": 6, "image":"bawang-besar-1.png", "name": "Ayam", "price": "19.90", "description": "Ayam"  },
+    { "id": 7, "image":"bawang-besar-1.png", "name": "Daging Batang Pinang 1kg (Frozen)", "price": "39.50", "description": "Description"  }
+  ],
+  "2": [
+    { "id": 8, "image":"bawang-besar-1.png", "name": "Bayam Hijau 1KG", "price": "5.00", "description": "Description"  },
+    { "id": 9, "image":"bawang-besar-1.png", "name": "Bayam Hijau 500g", "price": "3.50", "description": "Description"  },
+    { "id": 10, "image":"bawang-besar-1.png", "name": "Bayam Hijau 250g", "price": "2.30", "description": "Description"  }
+  ],
+  "3": [
+    { "id": 11, "image":"bawang-besar-1.png", "name": "Ikan Bawal Hitam", "price": "32.00", "description": "Description"  },
+    { "id": 12, "image":"bawang-besar-1.png", "name": "Cencaru", "price": "30.00", "description": "Description"  }
+  ],
+  "4": [
+    { "id": 13, "image":"bawang-besar-1.png", "name": "Apple Hijau", "price": "1.50", "description": "Description" },
+    { "id": 14, "image":"bawang-besar-1.png", "name": "Lemon", "price": "2.00", "description": "Description" }
+  ],
+  "5": [
+    { "id": 15, "image":"bawang-besar-1.png", "name": "Bawang Besar India 1KG", "price": "12.50", "description": "Description" },
+    { "id": 16, "image":"bawang-besar-1.png", "name": "Bawang Besar India 500g", "price": "7.50", "description": "Description" }
+  ]
+}

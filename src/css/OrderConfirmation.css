@@ -1,0 +1,35 @@
+/* Add these styles to App.css */
+
+.order-confirmation {
+    padding: 20px;
+    text-align: left;
+}
+
+.pickup-location, .your-order, .order-total {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.order-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.order-item-info {
+    flex: 1;
+}
+
+.pay-now {
+    padding: 10px 20px;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

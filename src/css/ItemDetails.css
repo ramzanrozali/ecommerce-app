@@ -1,0 +1,68 @@
+/* Add these styles to App.css */
+
+.item-details {
+    padding: 20px;
+    text-align: left;
+}
+
+.item-details img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+.item-details h2 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.item-details p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.item-price {
+    font-size: 20px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.item-quantity button {
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+.item-quantity button:hover {
+    background-color: #e0e0e0;
+}
+
+.item-quantity input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.add-to-cart {
+    padding: 10px 20px;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: lightgreen;
+}

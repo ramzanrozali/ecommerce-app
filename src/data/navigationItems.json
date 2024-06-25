@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Daging",
+    "icon": "faCow"
+  },
+  {
+    "id": 2,
+    "name": "Sayur",
+    "icon": "faSeedling"
+  },
+  {
+    "id": 3,
+    "name": "Seafood",
+    "icon": "faFish"
+  },
+  {
+    "id": 4,
+    "name": "Buah-buahan",
+    "icon": "faLemon"
+  },
+  {
+    "id": 5,
+    "name": "Runcit",
+    "icon": "faCartShopping"
+  }
+]
