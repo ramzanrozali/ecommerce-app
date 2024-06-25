@@ -8,7 +8,7 @@ const MenuItem = ({ id, image, name, price }) => {
                 <img src={`/images/${image}`} alt={name}/>
                 <div className="menu-item-info">
                 <h3>{name}</h3>
-                <p>RM {price}</p>
+                <p>from RM {price}</p>
             </div>
             </Link>
         </div>

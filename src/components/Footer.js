@@ -1,14 +1,21 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Footer = ({ cart }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
     const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
     const handleOrderNow = () => {
         navigate('/order-confirmation');
     };
+
+    const handlePayNow = () => {
+        navigate('/payment');
+    };
+
+    const isConfirmationPage = location.pathname === '/order-confirmation';
 
     return (
         <div className="footer">
@@ -18,7 +25,11 @@ const Footer = ({ cart }) => {
                     <span>RM {totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="item-info2">
-                    <button className="order-now" onClick={handleOrderNow}>Order Now</button>
+                    {isConfirmationPage ? (
+                        <button className="order-now" onClick={handlePayNow}>Pay Now</button>
+                    ) : (
+                        <button className="order-now" onClick={handleOrderNow}>Order Now</button>
+                    )}
                 </div>
             </div>
         </div>

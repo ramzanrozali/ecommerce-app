@@ -21,6 +21,34 @@
     margin: 10px 0;
 }
 
+.item-variants {
+    margin: 20px 0;
+}
+
+.variant-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.variant-button {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.variant-button.selected {
+    border-color: darkgreen;
+    background-color: darkgreen;
+    color: white;
+}
+
+.variant-button:hover {
+    background-color: #e0e0e0;
+}
+
 .item-price {
     font-size: 20px;
     margin: 20px 0;
