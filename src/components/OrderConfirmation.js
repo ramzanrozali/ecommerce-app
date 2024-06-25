@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from '../utils/debounce';
 import '../css/OrderConfirmation.css';
 
 const OrderConfirmation = ({ cart, removeFromCart }) => {
@@ -12,31 +13,7 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
     const voucherDiscount = 0.00; // Example voucher discount
     const sst = totalAmount * 0.06; // 6% SST
 
-    const BASE_CENTER = { lat: 3.214, lng: 101.618 }; // Example coordinates for the base center
-
-    useEffect(() => {
-        if (address) {
-            calculateDistance();
-        }
-    }, [address]);
-
-    const calculateDistance = async () => {
-        const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=YOUR_API_KEY`
-        );
-        const data = await response.json();
-        if (data.results.length > 0) {
-            const destination = data.results[0].geometry.location;
-            const distanceInKm = getDistanceFromLatLonInKm(
-                BASE_CENTER.lat,
-                BASE_CENTER.lng,
-                destination.lat,
-                destination.lng
-            );
-            setDistance(distanceInKm);
-            setDeliveryFee(distanceInKm * 2); // Example calculation: RM2 per km
-        }
-    };
+    const BASE_CENTER = { lat: 3.2439930459613837, lng: 101.66489216335326 };
 
     const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
         const R = 6371; // Radius of the earth in km
@@ -54,6 +31,32 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
     const deg2rad = (deg) => {
         return deg * (Math.PI / 180);
     };
+
+    const calculateDistance = async () => {
+        const response = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        );
+        const data = await response.json();
+        if (data.results.length > 0) {
+            const destination = data.results[0].geometry.location;
+            const distanceInKm = getDistanceFromLatLonInKm(
+                BASE_CENTER.lat,
+                BASE_CENTER.lng,
+                destination.lat,
+                destination.lng
+            );
+            setDistance(distanceInKm);
+            setDeliveryFee(distanceInKm * 2); // Example calculation: RM2 per km
+        }
+    };
+
+    const debouncedCalculateDistance = useCallback(debounce(calculateDistance, 500), [address]);
+
+    useEffect(() => {
+        if (address) {
+            debouncedCalculateDistance();
+        }
+    }, [address, debouncedCalculateDistance]);
 
     const grandTotal = totalAmount - voucherDiscount + deliveryFee;
 
@@ -115,7 +118,7 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                     <span>10 pts</span>
                 </div>
             </div>
-            <button className="pay-now" disabled={grandTotal <= 50}>Pay Now</button>
+            {/*<button className="pay-now" disabled={grandTotal <= 50}>Pay Now</button>*/}
         </div>
     );
 };
