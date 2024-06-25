@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import ItemDetails from './components/ItemDetails';
 import OrderConfirmation from './components/OrderConfirmation';
 import Header from './components/Header';
@@ -35,23 +35,31 @@ function App() {
         setCart((prevCart) => prevCart.filter(item => item.id !== itemId));
     };
 
+    const location = useLocation();
+
+    return (
+        <div className="App">
+            <Header />
+            <div className="content">
+                <Navigation onCategorySelect={handleCategorySelect} />
+                <Routes>
+                    <Route path="/" element={<Menu items={menuItemsData[selectedCategory]} />} />
+                    <Route path="/category/:categoryId" element={<Menu items={menuItemsData[selectedCategory]} onCategorySelect={handleCategorySelect} />} />
+                    <Route path="/item/:itemId" element={<ItemDetails items={menuItemsData} onAddToCart={handleAddToCart} />} />
+                    <Route path="/order-confirmation" element={<OrderConfirmation cart={cart} removeFromCart={removeFromCart} />} />
+                </Routes>
+            </div>
+            {location.pathname !== '/order-confirmation' && <Footer cart={cart} />}
+        </div>
+    );
+}
+
+function AppWrapper() {
     return (
         <Router>
-            <div className="App">
-                <Header />
-                <div className="content">
-                    <Navigation onCategorySelect={handleCategorySelect} />
-                    <Routes>
-                        <Route path="/" element={<Menu items={menuItemsData[selectedCategory]} />} />
-                        <Route path="/category/:categoryId" element={<Menu items={menuItemsData[selectedCategory]} onCategorySelect={handleCategorySelect} />} />
-                        <Route path="/item/:itemId" element={<ItemDetails items={menuItemsData} onAddToCart={handleAddToCart} />} />
-                        <Route path="/order-confirmation" element={<OrderConfirmation cart={cart} removeFromCart={removeFromCart} />} />
-                    </Routes>
-                </div>
-                <Footer cart={cart} />
-            </div>
+            <App />
         </Router>
     );
 }
 
-export default App;
+export default AppWrapper;
