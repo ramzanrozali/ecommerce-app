@@ -4,7 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Footer = ({ cart }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const itemCount = cart.length;
+    const itemQuantity = cart.reduce((total, item) => total + item.quantity, 0);
     const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
     const handleOrderNow = () => {
@@ -21,6 +22,7 @@ const Footer = ({ cart }) => {
         <div className="footer">
             <div className="footer-content">
                 <div className="item-info">
+                    {/*<span>{itemCount} items with {itemQuantity} quantity</span>*/}
                     <span>{itemCount} items</span>
                     <span>RM {totalAmount.toFixed(2)}</span>
                 </div>
