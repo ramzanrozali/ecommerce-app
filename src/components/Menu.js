@@ -10,7 +10,7 @@ const Menu = ({ items }) => {
     );
 
     return (
-        <div>
+        <div className="content-product">
             <div className="search-container">
                 <input
                     type="text"
@@ -25,8 +25,8 @@ const Menu = ({ items }) => {
                     <div key={item.id} className="menu-item">
                         <Link to={`/item/${item.id}`}>
                             <img src={`/images/${item.image}`} alt={item.name} />
-                            <h3>{item.name}</h3>
-                            <p>from RM {item.price}</p>
+                            <h4>{item.name}</h4>
+                            <p>RM {item.price}</p>
                         </Link>
                     </div>
                 ))}

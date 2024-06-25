@@ -51,9 +51,13 @@ body {
 }
 
 .content {
-  margin-left: 120px; /* Adjust this value to match the width of the navigation */
+  margin-left: 10px; /* Adjust this value to match the width of the navigation */
   padding: 20px;
   flex: 1;
+}
+
+.content-product {
+  margin-left: 130px;
 }
 
 .order-confirmation-margin {
