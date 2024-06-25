@@ -51,7 +51,7 @@ body {
 }
 
 .content {
-  margin-left: 110px; /* Adjust this value to match the width of the navigation */
+  margin-left: 120px; /* Adjust this value to match the width of the navigation */
   padding: 20px;
   flex: 1;
 }
@@ -61,7 +61,7 @@ body {
 }
 
 .navigation {
-  width: 130px; /* Adjust this value to your desired fixed width */
+  width: 140px; /* Adjust this value to your desired fixed width */
   position: absolute;
   top: 40px;
   left: 0;

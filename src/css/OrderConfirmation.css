@@ -81,7 +81,7 @@
 
 .pay-now {
     padding: 10px 20px;
-    background-color: #0056b3;
+    background-color: darkgreen;
     color: white;
     border: none;
     border-radius: 5px;
@@ -94,5 +94,9 @@
 }
 
 .pay-now:hover:not(:disabled) {
-    background-color: #004499;
+    background-color: darkgreen;
+}
+
+.error {
+    color: red;
 }

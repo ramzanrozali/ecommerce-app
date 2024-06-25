@@ -18,6 +18,15 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
     const [distance, setDistance] = useState(0);
     const [itemToRemove, setItemToRemove] = useState(null); // New state variable for item to remove
 
+    const [touchedFields, setTouchedFields] = useState({
+        name: false,
+        phone: false,
+        email: false,
+        address: false,
+        postcode: false,
+        state: false,
+    });
+
     const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     const voucherDiscount = 0.00; // Example voucher discount
     const sst = totalAmount * 0.06; // 6% SST
@@ -84,6 +93,22 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
     const grandTotal = totalAmount - voucherDiscount + deliveryFee;
     const pointsEarned = Math.floor(grandTotal);
 
+    const isEmailValid = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const isPhoneValid = (phone) => {
+        const phoneRegex = /^\+?\d{10,15}$/; // Adjust the regex according to your phone number format
+        return phoneRegex.test(phone);
+    };
+
+    const isFormValid = name && phone && email && address && postcode && state && isEmailValid(email) && isPhoneValid(phone);
+
+    const handleBlur = (field) => {
+        setTouchedFields({ ...touchedFields, [field]: true });
+    };
+
     return (
         <div className="order-confirmation">
             <button onClick={() => navigate('/')}>Back to List</button>
@@ -94,6 +119,7 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onBlur={() => handleBlur('name')}
                     placeholder="Enter your name"
                     required
                 />
@@ -101,22 +127,27 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    onBlur={() => handleBlur('phone')}
                     placeholder="Enter your phone number"
                     required
                 />
+                {touchedFields.phone && !isPhoneValid(phone) && <p className="error">Invalid phone number</p>}
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => handleBlur('email')}
                     placeholder="Enter your email"
                     required
                 />
+                {touchedFields.email && !isEmailValid(email) && <p className="error">Invalid email address</p>}
             </div>
             <div className="pickup-location">
                 <h4>Delivery Address</h4>
                 <textarea
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
+                    onBlur={() => handleBlur('address')}
                     placeholder="Enter your address"
                     required
                 />
@@ -124,10 +155,16 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                     type="text"
                     value={postcode}
                     onChange={(e) => setPostcode(e.target.value)}
+                    onBlur={() => handleBlur('postcode')}
                     placeholder="Enter your postcode"
                     required
                 />
-                <select value={state} onChange={(e) => setState(e.target.value)} required>
+                <select
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                    onBlur={() => handleBlur('state')}
+                    required
+                >
                     <option value="">Select your state</option>
                     <option value="Kuala Lumpur">Kuala Lumpur</option>
                     <option value="Selangor">Selangor</option>
@@ -181,7 +218,7 @@ const OrderConfirmation = ({ cart, removeFromCart }) => {
                     <span>{pointsEarned} pts</span>
                 </div>
             </div>
-            <button className="pay-now" disabled={grandTotal <= 50}>Pay Now</button>
+            <button className="pay-now" disabled={!isFormValid}>Pay Now</button>
 
             {itemToRemove !== null && (
                 <div className="confirmation-dialog">
